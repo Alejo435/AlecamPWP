@@ -2,10 +2,11 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-img = cv2.imread('/Users/pl198793/MidtermProject/alecam/image/Circle.png')
+img = cv2.imread('Circle.png')
 
 #coverts image to grayscale
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+gray_blur = cv2.blur(gray, (3, 3))
 
 # output = img.copy()
 # circle = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 1.3, 100)
