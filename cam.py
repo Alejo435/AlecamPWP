@@ -9,7 +9,7 @@ gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 gray_blur = cv2.blur(gray, (3, 3))
 
 # output = img.copy()
-# circle = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 1.3, 100)
+# circle = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 1, 100000), param1 = 50, param2 = 30, minRadius = 100, maxRadius = 300
 #
 # if circle is not None:
 #     circle = np.round(circle[0, :]).astype("int")
