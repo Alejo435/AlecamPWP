@@ -24,7 +24,7 @@ from scipy.cluster.hierarchy import ward, fcluster
 #
 # cv2.imwrite('linesDetected.jpg', img)
 
-img = cv2.imread('images/img01.bmp')
+img = cv2.imread('IMG-1201.jpg')
 img_canny = cv2.Canny(img, 50, 200, 3)
 
 lines = cv2.HoughLines(img_canny, 1, 5* np.pi / 180, 150)
