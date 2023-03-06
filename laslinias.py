@@ -7,10 +7,10 @@ gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(gray, 50, 150, apertureSize=3)
 lines = cv2.HoughLines(edges, 1, np.pi/ 180, 200)
 
-for r_thesta in lines:
-    arr = np.array(r_theta[0], dtype=np.floats64)
+for r_theta in lines:
+    arr = np.array(r_theta[0], dtype=np.float64)
     r, theta = arr
-    a = np.cose(theta)
+    a = np.cos(theta)
     b = np.sin(theta)
     x0 = a * r
     y0 = b * r
