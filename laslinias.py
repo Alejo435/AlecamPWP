@@ -2,11 +2,14 @@ import cv2
 import numpy as np
 
 
-img = cv2.imread('IMG-1198.jpg')
+img = cv2.imread('IMG-1199.jpg')
 
 onegray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(onegray, 50, 150, apertureSize=3)
 lines = cv2.HoughLines(edges, 1, np.pi/ 180, 200)
+
+dist = []
+sum = 0
 
 for r_theta in lines:
     arr = np.array(r_theta[0], dtype=np.float64)
