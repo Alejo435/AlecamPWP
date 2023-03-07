@@ -2,13 +2,13 @@ import cv2
 import numpy as np
 
 
-img = cv2.imread('IMG-1199.jpg')
+img = cv2.imread('IMG-1198.jpg')
 
 onegray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(onegray, 50, 150, apertureSize=3)
 lines = cv2.HoughLines(edges, 1, np.pi/ 180, 200)
 
-dist = []
+far = []
 sum = 0
 
 for r_theta in lines:
@@ -23,6 +23,9 @@ for r_theta in lines:
     x2 = int(x0 - 1000 * (-b))
     y2 = int(y0 - 1000 * (a))
     cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
+
+mid = int(sum/len(far))
+mid = cv2.line(img, (mid, 180), (mid, 1000), (0, 0, 255), 2)
 
 cv2.imwrite('linesDetected.jpg', img)
 
