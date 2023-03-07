@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-img = cv2.imread('IMG-1199.jpg')
+img = cv2.imread('IMG-1201.jpg')
 
 onegray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(onegray, 50, 150, apertureSize=3)
