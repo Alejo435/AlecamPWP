@@ -24,8 +24,8 @@ for r_theta in lines:
     y2 = int(y0 - 1000 * (a))
     cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
 
-mid = int(sum/len(far))
-mid = cv2.line(img, (mid, 180), (mid, 1000), (0, 0, 255), 2)
+#mid = int(sum/len(far))
+#mid = cv2.line(img, (mid, 180), (mid, 1000), (0, 0, 255), 2)
 
 cv2.imwrite('linesDetected.jpg', img)
 
