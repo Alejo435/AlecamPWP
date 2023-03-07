@@ -6,7 +6,7 @@ img = cv2.imread('IMG-1198.jpg')
 
 onegray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(onegray, 50, 150, apertureSize=3)
-lines = cv2.HoughLines(edges, 1, np.pi/ 180, 200)
+lines = cv2.HoughLines(edges, 0.1, np.pi/ 180, 200)
 
 far = []
 sum = 0
