@@ -2,11 +2,11 @@ import cv2
 import numpy as np
 
 
-img = cv2.imread('IMG_4654 (1).jpg')
+img = cv2.imread('IMG-4654 (1).jpg')
 
 onegray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-edges = cv2.Canny(onegray, 50, 150, apertureSize=3)
-lines = cv2.HoughLines(edges, 0.3, np.pi/ 180, 200)
+edges = cv2.Canny(onegray, 300, 400, apertureSize=3)
+lines = cv2.HoughLines(edges, 0.9, np.pi/ 180, 200)
 
 far = []
 sum = 0
