@@ -58,7 +58,7 @@ for n, b in line:
 midfp = xproduct/len(pointvalues)
 midsp = xproductr/len(pointvalues)
 
-cv2.line(img, (int(midfp), 0), (int(midsp),  5000), (255, 0, 0), 10)
+cv2.line(img, (int(midfp), 0), (int(midsp),  5000), (255, 0, 0), 5)
 
 cv2.imwrite('linesDetected.jpg', img)
 
