@@ -12,6 +12,7 @@ edges = cv2.Canny(onegray, 300, 400, apertureSize=3)
 lines = cv2.HoughLines(edges, 0.6, np.pi/ 180, 200)
 
 pointvalues= {}
+line = {}
 xproduct = 0
 xproductr= 0
 
@@ -43,12 +44,21 @@ for r_theta in lines:
 
     pointvalues[fp] = sp
 
-    cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 3)
+    cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255),
+             3)
+
+i = 0
+slope = 0
+y_int = b
+for n, b in line:
+    if i == 0:
+        slope = n
+        y_int = b
 
 midfp = xproduct/len(pointvalues)
 midsp = xproductr/len(pointvalues)
 
-cv2.line(img, (int(midfp), 0), (int(midsp),  5000), (255, 0, 0), 5)
+cv2.line(img, (int(midfp), 0), (int(midsp),  5000), (255, 0, 0), 10)
 
 cv2.imwrite('linesDetected.jpg', img)
 
