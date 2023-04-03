@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-inputImage = cv2.imread("turnt.jpg")
+inputImage = cv2.imread("Curve.jpg")
 inputImageGray = cv2.cvtColor(inputImage, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(inputImageGray,150,200,apertureSize = 3)
 minLineLength = 30
