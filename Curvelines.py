@@ -4,17 +4,39 @@ import numpy as np
 inputImage = cv2.imread("Curve.jpg")
 inputImageGray = cv2.cvtColor(inputImage, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(inputImageGray,150,200,apertureSize = 3)
-minLineLength = 30
-maxLineGap = 5
-lines = cv2.HoughLinesP(edges,cv2.HOUGH_PROBABILISTIC, np.pi/180, 30, minLineLength,maxLineGap)
-for x in range(0, len(lines)):
-    for x1,y1,x2,y2 in lines[x]:
-        #cv2.line(inputImage,(x1,y1),(x2,y2),(0,128,0),2, cv2.LINE_AA)
-        pts = np.array([[x1, y1 ], [x2 , y2]], np.int32)
-        cv2.polylines(inputImage, [pts], True, (0,255,0))
 
-font = cv2.FONT_HERSHEY_SIMPLEX
-cv2.putText(inputImage,"Lines Detected", (500, 250), font, 0.5, 255)
-cv2.imshow("result", inputImage)
-cv2.imshow('edge', edges)
+minLineLength = 0
+maxLineGap = 400
+parallelism =[]
+lines = cv2.HoughLinesP(edges, rho=1 , theta= np.pi/180, threshold = 60, minLineLength=0, maxLineGap=400)
+#Checks for extra lines to ensure only parallels remain
+for x in range(len(lines)):
+    for y in range(x+1, len(lines)):
+        line1 = lines[x][0]
+        line2 = lines[y][0]
+        ang = np.arctan2(line1[1]-line1[3], line1[0]-line1[2]) * 180 / np.pi
+        ang2 = np.arctan2(line2[1]-line2[3], line2[0]-line2[2]) * 180 / np.pi
+        if np.abs(ang - ang2) < 5:
+            parallelism.append((line1, line2))
+            print(line1,line2)
+
+def drawing(inputImage, x1, y1, x2, y2, color, chungus):
+    close = False
+    for extras in parallelism:
+        #Draws cicrcle to check intercection on borders
+        if (abs(extras[0][0]-x1) < 100 and abs(extras[0][1] -y1) < 100) or (abs(extras[0][2]-x2) <100 and abs(extras[0][3] -y2) < 100):
+            close = True
+            break
+    if close:
+        color = (0,255, 0)
+    cv2.line(inputImage, (x1, y1), (x2, y2), color, chungus)
+
+#Function will display the detected lines in image
+for puntos in parallelism:
+    drawing(inputImage, int((puntos[0][0] + puntos[1][0])/2), int((puntos[0][1]+puntos[1][1])/2), int((puntos[0][2]+ puntos[1][2])/2), int((puntos[0][3]+puntos[1][3])/2),(0, 0, 255), 2)
+
+cv2.imshow('lines', inputImage)
 cv2.waitKey(0)
+
+
+
