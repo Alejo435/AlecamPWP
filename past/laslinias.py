@@ -44,8 +44,7 @@ for r_theta in lines:
 
     pointvalues[fp] = sp
 
-    cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255),
-             3)
+    cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 3)
 
 i = 0
 slope = 0

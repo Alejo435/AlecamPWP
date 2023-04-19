@@ -1,0 +1,16 @@
+.wrapper{
+    display: grid;
+    height: 100rem;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 1rem;
+    background-color: #0000FF;
+    overflow: auto;
+}
+
+.tl {
+    background-color: #0000FF;
+    overflow: auto;
+    }
+
