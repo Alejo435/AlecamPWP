@@ -12,7 +12,7 @@ while True:
     #detects image
     ret, img = source.read()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    edges = cv2.Canny(onegray, 300, 400, apertureSize=3)
+    edges = cv2.Canny(gray, 300, 400, apertureSize=3)
     lines = cv2.HoughLines(edges, 0.6, np.pi / 180, 200)
 
     pointvalues = {}
@@ -65,6 +65,8 @@ while True:
     midsp = xproductr / len(pointvalues)
 
     cv2.line(img, (int(midfp), 0), (int(midsp), 5000), (255, 0, 0), 5)
+
+    cv2.write("detection_video", img)
 
     key = cv2.waitKey(25)
     if key == ord("q"):
