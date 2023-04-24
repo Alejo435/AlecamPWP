@@ -21,7 +21,7 @@ while True:
     xproductr = 0
 
     #Detects line edges:
-    for r_theta in lines:
+    if lines is not None:
         arr = np.array(r_theta[0], dtype=np.float64)
         r, theta = arr
         a = np.cos(theta)
@@ -74,7 +74,7 @@ while True:
     #To Do list:
     #Contour detection?? (?? == Look into)
 cv2.destroyALLWindows()
-source.release()
+
 
 
 
