@@ -5,6 +5,7 @@ from flask import request, jsonify, render_template
 web = flask.Flask(__name__)
 web.config["DEBUG"] = True
 
+#Determines get method
 @web.route('/', methods = ['GET'])
 def home():
    return "<h1>Greetings</h1><p>Welcome to car traversal detection</p><p></p>"
