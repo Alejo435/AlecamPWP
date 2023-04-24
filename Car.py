@@ -12,11 +12,7 @@ while True:
     #detects image
     ret, img = source.read()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    gray_blur = cv2.blur(gray, (5, 5), 0)
-    output = gray_blur.copy
-    #shows image
-    cv2.imshow(edge)
-
+    edges = cv2.Canny(onegray, 300, 400, apertureSize=3)
     lines = cv2.HoughLines(edges, 0.6, np.pi / 180, 200)
 
     pointvalues = {}
@@ -72,8 +68,6 @@ while True:
     if key == ord("q"):
         break
     #To Do list:
-    #Detect line edges
-    #Use midpoint fromulat
     #Contour detection?? (?? == Look into)
 cv2.destroyALLWindows()
 source.release()
