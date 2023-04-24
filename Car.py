@@ -59,6 +59,8 @@ while True:
             slope = n
             y_int = b
 
+
+    #Determines length of line (Hence len)
     midfp = xproduct / len(pointvalues)
     midsp = xproductr / len(pointvalues)
 
