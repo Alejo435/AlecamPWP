@@ -12,12 +12,25 @@ source = cv2.VideoCapture('vroom.mp4')
 ret, img = source.read()
 #detects image
 def edges(img):
-   gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+   gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
    blur = cv2.GaussianBlur(gray, (5, 5), 0)
    edges = cv2.Canny(blur,  300, 400)
    return edges
 
-def crop(img)
+def crop(img):
+    h = img.shape[0]
+    #determines height of cropped area
+    poly = np.array([[(300, h), (1100, h), (550, 250)]])
+    maskera = np.zerps_like(img)
+    cv2.fillPoly(maskera, poly, 255)
+    m_img = cv2.bitwise_and(img, maskera)
+    return m_img
+
+def points(img, lines):
+    slope, intercepts = lines
+    y1 = img.shape[0]
+    x1 = int
+
 #     pointvalues = {}
 #     line = {}
 #     xproduct = 0
