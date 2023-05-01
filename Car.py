@@ -19,7 +19,7 @@ def edges(img):
 #determines height of cropped area, gets required measuerments of the image of interst, and vreates an image that masks everything else
 def crop(img):
     h = img.shape[0]
-    poly = np.array([[(200, h), (1100, h), (550, 250)]])
+    poly = np.array([[(400, h), (1300, h), (550, 250)]])
     maskera = np.zeros_like(img)
     cv2.fillPoly(maskera, poly, 255)
     m_img = cv2.bitwise_and(img, maskera)
@@ -65,6 +65,7 @@ while True:
    _, frame = source.read()
    can = edges(frame)
    ROI = crop(can)
+   cv2.imshow("The end is near", ROI)
    lines = cv2.HoughLinesP(ROI, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
    mid = midline(frame, lines)
    output = displayintime(frame, mid)
