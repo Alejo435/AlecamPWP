@@ -1,12 +1,7 @@
 import cv2
 import numpy as np
-import math
-from numpy import ones,vstack
-from numpy.linalg import lstsq
-import matplotlib.pyplot as plt
 
-
-source = cv2.VideoCapture('vroom3.mp4')
+source = cv2.VideoCapture('vroom4.mp4')
 
 
 #applies 5 by 5 kernal window to imahge
@@ -19,7 +14,7 @@ def edges(img):
 #determines height of cropped area, gets required measuerments of the image of interst, and vreates an image that masks everything else
 def crop(img):
     h = img.shape[0]
-    poly = np.array([[(200, h), (1400, h), (700, 250)]])
+    poly = np.array([[(50, h), (1400, h), (800, 500)]])
     maskera = np.zeros_like(img)
     cv2.fillPoly(maskera, poly, 255)
     m_img = cv2.bitwise_and(img, maskera)
@@ -27,7 +22,10 @@ def crop(img):
 
 #getsother point from coresponding point, and specfies coodinates to mark slope and y intercept
 def points(img, linesp):
-    slope, intercepts = linesp
+    try:
+        slope, intercepts = linesp
+    except TypeError:
+        slope, intercepts = 0.001,0
     y1 = img.shape[0]
     x1 = int((y1 - intercepts)/slope)
     y2 = int(y1*(3/5))
@@ -65,7 +63,6 @@ while True:
    _, frame = source.read()
    can = edges(frame)
    ROI = crop(can)
-   cv2.imshow("The end is near", ROI)
    lines = cv2.HoughLinesP(ROI, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
    mid = midline(frame, lines)
    output = displayintime(frame, mid)

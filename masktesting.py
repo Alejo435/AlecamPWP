@@ -6,7 +6,7 @@ from numpy.linalg import lstsq
 import matplotlib.pyplot as plt
 
 
-source = cv2.VideoCapture('vroom3.mp4')
+source = cv2.VideoCapture('vroom4.mp4')
 
 def edges(img):
    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -17,7 +17,7 @@ def edges(img):
 
 def crop(img):
     h = img.shape[0]
-    poly = np.array([[(200, h), (1400, h), (700, 250)]])
+    poly = np.array([[(50, h), (1400, h), (800, 250)]])
     maskera = np.zeros_like(img)
     cv2.fillPoly(maskera, poly, 255)
     m_img = cv2.bitwise_and(img, maskera)
