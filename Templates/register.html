@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+ <h2>Registration Page</h2><br>
+    <div class="login">
+    <!--form id="login" method="get" action="login.php"-->
+        <label><b>User Name
+        </b>
+        </label>
+        <input type="text" name="Uname" id="Uname" placeholder="Username">
+        <br><br>
+        <label><b>Password
+        </b>
+        </label>
+        <input type="Password" name="Pass" id="Pass" placeholder="Password">
+        <br><br>
+        <button id="OButton" class="float-left submit-button" >Register Account</button>
+        <script type="text/javascript">
+            document.getElementById("OButton").onclick = function () {
+                location.href = "http://127.0.0.1:5000";
+            };
+        </script>
+    </form>
+</div>
+</body>
+</html>

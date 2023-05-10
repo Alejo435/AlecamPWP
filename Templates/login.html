@@ -7,25 +7,25 @@
 <body>
     <h2>Login Page</h2><br>
     <div class="login">
-    <form id="login" method="get" action="login.php">
-        <label><b>User Name
-        </b>
+    <!--form id="login" method="get" action="login.php"-->
+        Username <input type="text" name="username" value=''><br>
+        <br><br>
         </label>
-        <input type="text" name="Uname" id="Uname" placeholder="Username">
+        Password <input type="password" name="password" value=''><br/>
         <br><br>
-        <label><b>Password
-        </b>
-        </label>
-        <input type="Password" name="Pass" id="Pass" placeholder="Password">
+        <button id="myButton" class="float-left submit-button" >Log in</button>
+        <script type="text/javascript">
+            document.getElementById("myButton").onclick = function () {
+                location.href = "http://127.0.0.1:5000/ui";
+            };
+        </script>
         <br><br>
-        <button oneclick = "window.location.href='http://127.0.0.1:5000/ui';">Log In</button>
-        <br><br>
-        <button oneclick = "window.location.href='http://127.0.0.1:5000/ui';">Log In</button>
-        <br><br>
-        <input type="checkbox" id="check">
-        <span>Remember me</span>
-        <br><br>
-        Forgot <a href="index.html">Password</a>
+        <button id="RButton" class="float-left submit-button" >Sign up</button>
+        <script type="text/javascript">
+            document.getElementById("RButton").onclick = function () {
+                location.href = "http://127.0.0.1:5000/register";
+            };
+        </script>
     </form>
 </div>
 </body>

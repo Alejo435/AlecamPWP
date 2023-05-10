@@ -9,8 +9,25 @@
     overflow: auto;
 }
 
+
 .tl {
     background-color: #0000FF;
     overflow: auto;
     }
+
+.tr {
+    background-color: #FF0000;
+    overflow: auto;
+    }
+
+.bl {
+    background-color: #FF0000;
+    overflow: auto;
+    }
+
+.br {
+    background-color: #0000FF;
+    overflow: auto;
+    }
+
 

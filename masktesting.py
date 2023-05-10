@@ -1,12 +1,7 @@
 import cv2
 import numpy as np
-import math
-from numpy import ones,vstack, asarray
-from numpy.linalg import lstsq
-import matplotlib.pyplot as plt
 
-
-source = cv2.VideoCapture('vroom4.mp4')
+source = cv2.VideoCapture('vroom.mp4')
 
 def edges(img):
    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
