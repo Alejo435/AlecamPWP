@@ -1,6 +1,7 @@
 from  flask import Flask
 from flask import request, jsonify, render_template, Response
 import sqlite3
+import sqlite3 as sql
 import hashlib
 import cv2
 import numpy as np
@@ -114,16 +115,18 @@ def video_feed():
 #Determines get method
 @web.route("/", methods = ['POST','GET'])
 def login():
-    if request.method=='POST':
-        username = request.form['username']
-        password = request.form['password']
-        username = hashlib.sha256(username.encode('utf8')).hexdigest()
-        password = hashlib.sha256(password.encode('utf8')).hexdigest()
-        dbHandler.insertUser(username, password)
-        users = dbHandler.retrieveUsers()
-        return render_template('index.html', users=users)
-    else:
-        return render_template('login.html')
+    if request.method =='POST':
+        Uname = request.form['Uname']
+        Pass = request.form['Pass']
+        con = sql.connect("database.db")
+        cur = con.cursor()
+        checkcred = f"SELECT username from database WHERE username='{Uname}' AND Password ='{Pass}';"
+        if not cur.fetchone():
+            return render_template('login.html')
+        else:
+            return render_template('index.html')
+
+
 
 @web.route('/ui')
 def index():
@@ -132,8 +135,16 @@ def index():
 
 @web.route('/register', methods = ['GET','POST'])
 def register():
-
-    return render_template('register.html')
+    if request.method=='POST':
+        username = request.form['username']
+        password = request.form['password']
+        username = hashlib.sha256(username.encode('utf8')).hexdigest()
+        password = hashlib.sha256(password.encode('utf8')).hexdigest()
+        dbHandler.insertUser(username, password)
+        users = dbHandler.retrieveUsers()
+        return render_template('login.html', users=users)
+    else:
+        return render_template('register.html')
 
 @web.errorhandler(404)
 def page_not_found(e):
