@@ -6,10 +6,11 @@ source = cv2.VideoCapture('vroom3.mp4')
 
 #applies 5 by 5 kernal window to imahge
 def edges(img):
-   gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-   blur = cv2.GaussianBlur(gray, (5, 5), 0)
-   edges = cv2.Canny(blur,  50, 150)
-   return edges
+    if img is not None:
+       gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+       blur = cv2.GaussianBlur(gray, (5, 5), 0)
+       edges = cv2.Canny(blur,  50, 150)
+       return edges
 
 #determines height of cropped area, gets required measuerments of the image of interst, and vreates an image that masks everything else
 def crop(img):
