@@ -117,6 +117,8 @@ def login():
     if request.method=='POST':
         username = request.form['username']
         password = request.form['password']
+        username = hashlib.sha256(username.encode('utf8')).hexdigest()
+        password = hashlib.sha256(password.encode('utf8')).hexdigest()
         dbHandler.insertUser(username, password)
         users = dbHandler.retrieveUsers()
         return render_template('index.html', users=users)
