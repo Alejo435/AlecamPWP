@@ -4,29 +4,32 @@
     <title>Login Form</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-    <h2>Login Page</h2><br>
-    <div class="login">
-    <!--form id="login" method="get" action="login.php"-->
-        Username <input type="text" name="username" value=''><br>
-        <br><br>
-        </label>
-        Password <input type="password" name="password" value=''><br/>
-        <br><br>
-        <button id="myButton" class="float-left submit-button" >Log in</button>
-        <script type="text/javascript">
-            document.getElementById("myButton").onclick = function () {
-                location.href = "http://127.0.0.1:5000/ui";
+    <body>
+    	<div class="box">
+  			<h1>Log In</h1>
+  			<form action="/" method="post">
+    			<input type="text" name="username" id="username" placeholder="Username" required/>
+    			<br><br>
+    			<input type="password" name="password" id="password" placeholder="Password" required/>
+    			<br><br>
+    			<input type="submit" class="button" id =PButton value="Log In"/>
+                <script type="text/javascript">
+            document.getElementById("PButton").onclick = function () {
+                location.href = "http://127.0.0.1:5000";
             };
-        </script>
-        <br><br>
-        <button id="RButton" class="float-left submit-button" >Sign up</button>
-        <script type="text/javascript">
-            document.getElementById("RButton").onclick = function () {
+                </script>
+				<br><br>
+
+
+				<input type="submit" class="button" id =OButton value="Sign-up"/>
+                <script type="text/javascript">
+            document.getElementById("OButton").onclick = function () {
                 location.href = "http://127.0.0.1:5000/register";
             };
-        </script>
-    </form>
-</div>
-</body>
+                </script>
+  			</form>
+		</div>
+    </body>
 </html>
+
+

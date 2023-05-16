@@ -1,16 +1,19 @@
-import flask
+from  flask import Flask
 from flask import request, jsonify, render_template, Response
 import sqlite3
 import hashlib
 import cv2
 import numpy as np
+import re
+import models as dbHandler
 
-web = flask.Flask(__name__, template_folder='Templates')
-web.config["DEBUG"] = True
+
+web = Flask(__name__, template_folder='Templates')
+
 def gen():
     source = cv2.VideoCapture('vroom3.mp4')
 
-    # applies 5 by 5 kernal window to image
+    # applies 5 by 5 kernel window to image
     def edges(img):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         blur = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -109,15 +112,20 @@ def video_feed():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 #Determines get method
-@web.route("/", methods = ['GET'])
+@web.route("/", methods = ['POST','GET'])
 def login():
-   return render_template('login.html')
+    if request.method=='POST':
+        username = request.form['username']
+        password = request.form['password']
+        dbHandler.insertUser(username, password)
+        users = dbHandler.retrieveUsers()
+        return render_template('index.html', users=users)
+    else:
+        return render_template('login.html')
 
 @web.route('/ui')
 def index():
-    # Getting the Video Stream on the website
     return render_template('index.html')
-
 
 
 @web.route('/register', methods = ['GET','POST'])
