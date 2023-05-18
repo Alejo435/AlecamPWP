@@ -1,5 +1,5 @@
 from  flask import Flask
-from flask import request, jsonify, render_template, Response
+from flask import request, jsonify, render_template, Response, redirect, url_for
 import sqlite3
 import sqlite3 as sql
 import hashlib
@@ -113,20 +113,31 @@ def video_feed():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 #Determines get method
-@web.route("/", methods = ['POST','GET'])
+@web.route('/', methods = ['GET','POST'])
+def red():
+    return redirect(url_for('login'))
+
+
+@web.route("/login", methods = ['POST','GET'])
 def login():
+    return render_template('login.html')
+
+
+@web.route("/check", methods = ['POST','GET'])
+def check():
+    errormsg = ' '
     if request.method =='POST':
-        Uname = request.form['Uname']
-        Pass = request.form['Pass']
-        con = sql.connect("database.db")
-        cur = con.cursor()
-        checkcred = f"SELECT username from database WHERE username='{Uname}' AND Password ='{Pass}';"
-        if not cur.fetchone():
-            return render_template('login.html')
+        username = request.form['Uname']
+        password = request.form['Pass']
+        password = hashlib.sha256(password.ecnode('utf8')).hexdigest()
+        cur = sqlite3.connect("database.db").cursor()
+        cur.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password,))
+        ucheck = cur.fetchone()
+        if ucheck:
+            return redirect(url_for('ui'))
         else:
-            return render_template('index.html')
-
-
+            errormsg='Incorrect username or Password'
+    return redirect(url_for('login'))
 
 @web.route('/ui')
 def index():
@@ -141,8 +152,7 @@ def register():
         username = hashlib.sha256(username.encode('utf8')).hexdigest()
         password = hashlib.sha256(password.encode('utf8')).hexdigest()
         dbHandler.insertUser(username, password)
-        users = dbHandler.retrieveUsers()
-        return render_template('login.html', users=users)
+        return render_template('login.html')
     else:
         return render_template('register.html')
 
