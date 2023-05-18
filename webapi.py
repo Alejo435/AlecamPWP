@@ -127,11 +127,11 @@ def login():
 def check():
     errormsg = ' '
     if request.method =='POST':
-        username = request.form['Uname']
-        password = request.form['Pass']
-        password = hashlib.sha256(password.ecnode('utf8')).hexdigest()
+        username = request.form['uname']
+        password = request.form['pass']
+        password = hashlib.sha256(password.encode('utf8')).hexdigest()
         cur = sqlite3.connect("database.db").cursor()
-        cur.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password,))
+        cur.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password))
         ucheck = cur.fetchone()
         if ucheck:
             return redirect(url_for('ui'))
@@ -149,7 +149,6 @@ def register():
     if request.method=='POST':
         username = request.form['username']
         password = request.form['password']
-        username = hashlib.sha256(username.encode('utf8')).hexdigest()
         password = hashlib.sha256(password.encode('utf8')).hexdigest()
         dbHandler.insertUser(username, password)
         return render_template('login.html')
