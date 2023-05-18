@@ -114,30 +114,24 @@ def video_feed():
 
 #Determines get method
 @web.route('/', methods = ['GET','POST'])
-def red():
-    return redirect(url_for('login'))
-
-
-@web.route("/login", methods = ['POST','GET'])
 def login():
-    return render_template('login.html')
-
+    return render_template("login.html")
 
 @web.route("/check", methods = ['POST','GET'])
 def check():
-    errormsg = ' '
-    if request.method =='POST':
+     errormsg = ' '
+     if request.method =='POST':
         username = request.form['uname']
         password = request.form['pass']
         password = hashlib.sha256(password.encode('utf8')).hexdigest()
         cur = sqlite3.connect("database.db").cursor()
-        cur.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password))
+        cur.execute(f"SELECT username from users WHERE username='{username}' AND password = '{password}';",);
         ucheck = cur.fetchone()
         if ucheck:
-            return redirect(url_for('ui'))
+            return redirect('/ui')
         else:
             errormsg='Incorrect username or Password'
-    return redirect(url_for('login'))
+     return render_template("login.html")
 
 @web.route('/ui')
 def index():
