@@ -95,18 +95,6 @@ def gen():
             yield (b'--frame]r]n' 
                    b'Content-Type: img/jpeg\r\n\r\n' + frame + b'\r\n')
 
-def test():
-    source = cv2.VideoCapture('vroom.mp4')
-    gray = cv2.cvtColor(source, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray, (5, 5), 0)
-    edges = cv2.Canny(blur, 50, 150)
-
-    while True:
-        if cv2.waitKey(1) == ord('q'):
-            _, buffer = cv2.imencode('.mp4', edge)
-            edge = buffer.tobytes()
-            yield (b'--frame]r]n'
-                b'Content-Type: img/jpeg\r\n\r\n' + edge + b'\r\n')
 
 @web.route('/video_feed')
 def video_feed():
@@ -127,6 +115,7 @@ def check():
         cur = sqlite3.connect("database.db").cursor()
         cur.execute(f"SELECT username from users WHERE username='{username}' AND password = '{password}';",);
         ucheck = cur.fetchone()
+        cur.close()
         if ucheck:
             return redirect('/ui')
         else:
