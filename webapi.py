@@ -24,7 +24,7 @@ def gen():
     # determines height of cropped area, gets required measuerments of the image of interst, and vreates an image that masks everything else
     def crop(img):
         h = img.shape[0]
-        poly = np.array([[(50, h), (1400, h), (800, 500)]])
+        poly = np.array([[(50, h), (1800, h), (800, 500)]])
         maskera = np.zeros_like(img)
         cv2.fillPoly(maskera, poly, 255)
         m_img = cv2.bitwise_and(img, maskera)
