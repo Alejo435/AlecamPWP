@@ -82,18 +82,18 @@ def gen():
     while  source.isOpened():
         v, frame = source.read()
         if v:
-            # can = edges(frame)
-            # ROI = crop(can)
-            # lines = cv2.HoughLinesP(ROI, 2, np.pi / 180, 100, np.array([]), minLineLength=40, maxLineGap=5)
-            # mid = midline(frame, lines)
-            # output = displayintime(frame, mid)
-            # midimg = cv2.addWeighted(frame, 0.8, output, 1, 1)
+            can = edges(frame)
+            ROI = crop(can)
+            lines = cv2.HoughLinesP(ROI, 2, np.pi / 180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+            mid = midline(frame, lines)
+            output = displayintime(frame, mid)
+            midimg = cv2.addWeighted(frame, 0.8, output, 1, 1)
 
 
-            _, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
+            _, buffer = cv2.imencode('.jpg', midimg)
+            midimg = buffer.tobytes()
             yield (b'--frame]r]n' 
-                   b'Content-Type: img/jpeg\r\n\r\n' + frame + b'\r\n')
+                   b'Content-Type: img/jpeg\r\n\r\n' + midimg + b'\r\n')
 
 
 @web.route('/video_feed')
@@ -107,26 +107,23 @@ def login():
 
 @web.route("/check", methods = ['POST','GET'])
 def check():
-     errormsg = ' '
      if request.method =='POST':
-        username = request.form['uname']
-        password = request.form['pass']
+        username = request.form['username']
+        password = request.form['password']
         password = hashlib.sha256(password.encode('utf8')).hexdigest()
         cur = sqlite3.connect("database.db").cursor()
-        cur.execute(f"SELECT username from users WHERE username='{username}' AND password = '{password}';",);
+        cur.execute(f"SELECT * from users WHERE username='{username}' AND password = '{password}';",)
         ucheck = cur.fetchone()
         cur.close()
         if ucheck:
             return redirect('/ui')
-        else:
-            errormsg='Incorrect username or Password'
      return render_template("login.html")
 
 @web.route('/ui')
 def index():
     return render_template('index.html')
 
-
+#Puts entrys into username and password from index into databse, are identified by their ids, as shown in request form
 @web.route('/register', methods = ['GET','POST'])
 def register():
     if request.method=='POST':

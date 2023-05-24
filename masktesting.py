@@ -12,7 +12,7 @@ def edges(img):
 
 def crop(img):
     h = img.shape[0]
-    poly = np.array([[(50, h), (1400, h), (800, 250)]])
+    poly = np.array([[(50, h), (2000, h), (800, 250), (650,250)]])
     maskera = np.zeros_like(img)
     cv2.fillPoly(maskera, poly, 255)
     m_img = cv2.bitwise_and(img, maskera)
